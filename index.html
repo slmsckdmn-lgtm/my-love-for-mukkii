@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Gift for Mukkii 💌</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --primary-pink: #ff8aa0;
+            --light-pink: #ffe4e6;
+            --dark-pink: #ff5c7c;
+            --text-color: #543a28;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe4e6, #ffd1dc);
+            color: var(--text-color);
+            overflow-x: hidden;
+            text-align: center;
+            cursor: pointer;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Screen layouts */
+        .screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            transition: opacity 1s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Password Screen Styles */
+        #passwordScreen {
+            background: linear-gradient(135deg, #ff8aa0, #ff5c7c);
+        }
+
+        .password-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .password-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+            color: var(--text-color);
+        }
+
+        .password-subtitle {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .pin-input {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pin-digit {
+            width: 50px;
+            height: 60px;
+            border: 2px solid var(--primary-pink);
+            border-radius: 10px;
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: bold;
+            background: white;
+        }
+
+        .pin-digit:focus {
+            outline: none;
+            border-color: var(--dark-pink);
+            box-shadow: 0 0 10px rgba(255, 92, 124, 0.3);
+        }
+
+        .submit-pin {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-pin:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+
+        .hint {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Fade effects */
+        .fade-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 30px;
+            margin: 10px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+
+        #yesBtn, #startYes, #tryAgainBtn { 
+            background-color: var(--primary-pink); 
+            color: white; 
+        }
+
+        #noBtn, #startNo { 
+            background-color: var(--light-pink); 
+            color: var(--text-color); 
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Notes section */
+        .notes {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            max-width: 600px;
+            box-shadow: var(--shadow);
+        }
+
+        .notes p {
+            margin: 15px 0;
+            font-size: 1.3rem;
+        }
+
+        /* Polaroid Gallery */
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 30px auto;
+            max-width: 90%;
+        }
+
+        .polaroid {
+            width: 220px;
+            background: white;
+            padding: 15px 15px 30px 15px;
+            box-shadow: var(--shadow);
+            transform: rotate(2deg);
+            transition: all 0.3s ease;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(-2deg);
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(45deg, var(--primary-pink), var(--dark-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .polaroid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid-caption {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        /* Love question section */
+        #loveQuestion {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .love-buttons {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: 80px;
+            width: 100%;
+        }
+
+        /* Closing section */
+        .closing {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Footer */
+        footer { 
+            margin-top: 10px; 
+            font-size: 0.9rem; 
+            opacity: 0.8; 
+            padding: 10px;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            color: #ff9eb5;
+            font-size: 20px;
+            pointer-events: none;
+            user-select: none;
+            animation: fall 6s linear infinite;
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Audio controls */
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .audio-controls button {
+            margin: 0;
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 500px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .countdown-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-pink);
+        }
+
+        .time-label {
+            font-size: 0.7rem;
+            color: var(--text-color);
+            margin-top: 2px;
+        }
+
+        /* Heart burst animation */
+        .heart-burst {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            animation: burst 1.5s ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% { transform: translate(0, 0) scale(0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
+        }
+
+        /* Make all elements visible by default */
+        #giftScreen h1,
+        #giftScreen h2,
+        #giftScreen p,
+        #giftScreen .notes,
+        #giftScreen .gallery,
+        #giftScreen .loved,
+        #giftScreen .closing,
+        #giftScreen #loveQuestion {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- PASSWORD SCREEN -->
+    <div id="passwordScreen" class="screen">
+        <div class="password-container">
+            <h1 class="password-title">Welcome to Your Gift 💝</h1>
+            <p class="password-subtitle">Enter the special PIN to continue</p>
+            
+            <div class="pin-input">
+                <input type="password" class="pin-digit" maxlength="1" oninput="moveToNext(this, 1)">
+                <input type="password" class="pin-digit" maxlength="1" oninput="moveToNext(this, 2)">
+                <input type="password" class="pin-digit" maxlength="1" oninput="moveToNext(this, 3)">
+                <input type="password" class="pin-digit" maxlength="1" oninput="moveToNext(this, 4)">
+            </div>
+            
+            <button class="submit-pin" onclick="checkPassword()">Unlock Your Gift 🗝️</button>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="hint">Hint: Think of our special numbers 💫</div>
+        </div>
+    </div>
+
+    <!-- FIRST SCREEN -->
+    <div id="firstScreen" class="screen" style="display:none;">
+        <h1 id="greeting">Hello my love 💖</h1>
+        <h2 id="giftQuestion">Would you like to see your gift?</h2>
+        <div>
+            <button id="startYes">Yes 💖</button>
+            <button id="startNo">No 😢</button>
+        </div>
+    </div>
+
+    <!-- GIFT SCREEN -->
+    <div id="giftScreen" class="screen" style="display:none;">
+        <h1 id="step1">My dearest Mukkii 💌</h1>
+        <p id="step2">Distance means nothing when hearts stay close.<br>Even from miles away, your love still feels like home.</p>
+
+        <!-- Countdown Timer -->
+        <div class="countdown-container" id="countdownTimer">
+            <div class="countdown-title">Time Since We've Been Together 💕</div>
+            <div class="countdown-timer">
+                <div class="time-unit">
+                    <div class="time-value" id="days">0</div>
+                    <div class="time-label">Days</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="hours">0</div>
+                    <div class="time-label">Hours</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">0</div>
+                    <div class="time-label">Minutes</div>
+                </div>
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">0</div>
+                    <div class="time-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="notes" id="step3">
+            <p>💫 You still owe me a million hugs 😆</p>
+            <p>🍰 I'll never share my dessert... unless it's with you!</p>
+            <p>🐻 You're my favorite notification ❤️</p>
+        </div>
+
+        <!-- Polaroid Gallery -->
+        <div class="gallery" id="step4">
+            <div class="polaroid">
+                <div class="polaroid-img">
+                    <img src="photo1.jpg" alt="I see the world in those eyes" onerror="this.parentElement.innerHTML='💕'">
+                </div>
+                <div class="polaroid-caption">I see the world in those eyes</div>
+            </div>
+            <div class="polaroid">
+                <div class="polaroid-img">
+                    <img src="photo2.jpg" alt="Your lovely face (and eyebrows)" onerror="this.parentElement.innerHTML='😊'">
+                </div>
+                <div class="polaroid-caption">Your lovely face (and eyebrows)</div>
+            </div>
+            <div class="polaroid">
+                <div class="polaroid-img">
+                    <img src="photo3.jpg" alt="And us" onerror="this.parentElement.innerHTML='👫'">
+                </div>
+                <div class="polaroid-caption">And us</div>
+            </div>
+        </div>
+
+        <!-- Final Messages -->
+        <div class="loved" id="step5">
+            <h2>You are just perfect the way you are. I love you 💞</h2>
+        </div>
+
+        <div id="loveQuestion">
+            <h2>Will you be mine forever?</h2>
+            <div class="love-buttons">
+                <button id="yesBtn">Yes 💖</button>
+                <button id="noBtn">No 😢</button>
+            </div>
+        </div>
+
+        <div class="closing" id="step6">Next month I'll love you even more 💞</div>
+    </div>
+
+    <footer>30th of September 2025 – ♾️ Yağmur & Mukii</footer>
+
+    <!-- Audio controls -->
+    <div class="audio-controls" style="display:none;">
+        <button id="playBtn"><i class="fas fa-play"></i></button>
+        <button id="muteBtn"><i class="fas fa-volume-up"></i></button>
+    </div>
+
+    <script>
+        // Password functionality
+        const CORRECT_PIN = '0809';
+        
+        function moveToNext(input, nextIndex) {
+            if (input.value.length === 1) {
+                if (nextIndex <= 4) {
+                    const nextInput = document.querySelectorAll('.pin-digit')[nextIndex - 1];
+                    if (nextInput) {
+                        nextInput.focus();
+                    }
+                }
+            }
+        }
+
+        function checkPassword() {
+            const digits = document.querySelectorAll('.pin-digit');
+            let enteredPin = '';
+            
+            digits.forEach(digit => {
+                enteredPin += digit.value;
+            });
+            
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (enteredPin === CORRECT_PIN) {
+                // Correct PIN - show the gift
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('firstScreen').style.display = 'flex';
+                errorMessage.textContent = '';
+            } else {
+                // Wrong PIN - show error
+                errorMessage.textContent = 'Incorrect PIN. Try again! 💔';
+                // Clear all inputs
+                digits.forEach(digit => {
+                    digit.value = '';
+                });
+                // Focus first input
+                digits[0].focus();
+            }
+        }
+
+        // Allow Enter key to submit PIN
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.getElementById('passwordScreen').style.display !== 'none') {
+                checkPassword();
+            }
+        });
+
+        // Focus first PIN input on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.pin-digit').focus();
+        });
+
+        // Floating hearts
+        setInterval(() => {
+            const h = document.createElement('div');
+            h.classList.add('heart');
+            h.innerHTML = '💖';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (15 + Math.random() * 15) + 'px';
+            h.style.animationDuration = (3 + Math.random() * 3) + 's';
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }, 400);
+
+        // Audio setup
+        const bgMusic = new Audio();
+        bgMusic.src = 'song.mp3';
+        bgMusic.volume = 0.7;
+        bgMusic.loop = true;
+
+        const audioControls = document.querySelector('.audio-controls');
+        const playBtn = document.getElementById('playBtn');
+        const muteBtn = document.getElementById('muteBtn');
+        const countdownTimer = document.getElementById('countdownTimer');
+
+        // First screen interactions
+        const firstScreen = document.getElementById('firstScreen');
+        const giftScreen = document.getElementById('giftScreen');
+
+        document.getElementById('startYes').addEventListener('click', () => {
+            firstScreen.style.display = 'none';
+            giftScreen.style.display = 'flex';
+            audioControls.style.display = 'flex';
+            
+            // Start music
+            bgMusic.play().then(() => {
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }).catch(e => {
+                console.log("Audio play failed:", e);
+            });
+            
+            // Start countdown timer
+            startCountdown();
+        });
+
+        document.getElementById('startNo').addEventListener('click', () => {
+            const greeting = document.getElementById('greeting');
+            const giftQuestion = document.getElementById('giftQuestion');
+            
+            greeting.innerText = "But you are gonna love it I promise!";
+            giftQuestion.innerHTML = "";
+            
+            // Add try again button
+            const tryAgainBtn = document.createElement('button');
+            tryAgainBtn.id = 'tryAgainBtn';
+            tryAgainBtn.innerText = 'Try Again 💖';
+            firstScreen.appendChild(tryAgainBtn);
+            
+            tryAgainBtn.addEventListener('click', () => {
+                firstScreen.style.display = 'none';
+                giftScreen.style.display = 'flex';
+                audioControls.style.display = 'flex';
+                
+                // Start music
+                bgMusic.play().then(() => {
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                });
+                
+                // Start countdown timer
+                startCountdown();
+            });
+        });
+
+        // Audio controls
+        playBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                bgMusic.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        muteBtn.addEventListener('click', () => {
+            bgMusic.muted = !bgMusic.muted;
+            muteBtn.innerHTML = bgMusic.muted ? 
+                '<i class="fas fa-volume-mute"></i>' : 
+                '<i class="fas fa-volume-up"></i>';
+        });
+
+        // Countdown timer function
+        function startCountdown() {
+            // Set start date to September 30, 2025 at 21:49
+            const startDate = new Date('September 30, 2025 21:49:00').getTime();
+            
+            function updateTimer() {
+                const now = new Date().getTime();
+                const distance = now - startDate;
+                
+                // Calculate days, hours, minutes and seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Update the display
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
+            }
+            
+            // Update immediately and then every second
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // Love question buttons
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const loveButtons = document.querySelector('.love-buttons');
+
+        yesBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Remove No button
+            noBtn.style.display = "none";
+            
+            // Make Yes button bigger and center it
+            yesBtn.style.transform = "scale(1.5)";
+            yesBtn.style.backgroundColor = "#ff5c7c";
+            yesBtn.style.position = "absolute";
+            yesBtn.style.left = "50%";
+            yesBtn.style.top = "50%";
+            yesBtn.style.transform = "translate(-50%, -50%) scale(1.5)";
+            
+            // Create heart burst effect
+            createHeartBurst();
+        });
+
+        noBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Make No button disappear
+            noBtn.style.display = "none";
+        });
+
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = loveButtons.offsetWidth - noBtn.offsetWidth;
+            const maxY = loveButtons.offsetHeight - noBtn.offsetHeight;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = Math.random() * maxX + 'px';
+            noBtn.style.top = Math.random() * maxY + 'px';
+        });
+
+        // Heart burst function
+        function createHeartBurst() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-burst');
+                    heart.innerHTML = '💖';
+                    
+                    // Random direction and distance
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 50 + Math.random() * 100;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    heart.style.setProperty('--tx', tx + 'px');
+                    heart.style.setProperty('--ty', ty + 'px');
+                    heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+                    
+                    loveButtons.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1500);
+                }, i * 100);
+            }
+        }
+
+        // Keyboard navigation for first screen
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && firstScreen.style.display !== 'none') {
+                document.getElementById('startYes').click();
+            }
+        });
+    </script>
+</body>
+</html>
